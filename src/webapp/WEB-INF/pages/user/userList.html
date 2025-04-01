@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" lang="ru" >
+<head>
+
+  <style type="text/css">
+    .text-center {
+      text-align: center;
+    }
+  </style>
+  <title>User List</title>
+</head>
+<body>
+<h1 class="text-center"><strong>USERS LIST</strong></h1>
+<br>
+<table border="1" align="center" cellspacing="0" cellpadding="3">
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Surname</th>
+    <th>Age</th>
+    <th>Email</th>
+  </tr>
+  <tr th:each="user : ${users}" style="text-align:center">
+    <td th:text="${user.id}"></td>
+    <td th:text="${user.name}"></td>
+    <td th:text="${user.surname}"></td>
+    <td th:text="${user.age}"></td>
+    <td th:text="${user.email}"></td>
+    <td>
+      <meta charset="UTF-8" />
+      <meta charset="<?php bloginfo('charset'); ?>" />
+      <a th:href="@{/users/edit(id=${user.id})}" class="link">Edit</a>
+      <a th:href="@{/users/delete(id=${user.id})}" class="link">Delete</a>
+    </td>
+  </tr>
+</table>
+<div style="text-align:center; margin-top: 20px;">
+  <a href="/users/add" class="link">Create User</a>
+
+</div>
+</body>
+</html>
