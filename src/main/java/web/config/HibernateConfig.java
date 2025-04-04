@@ -20,9 +20,9 @@ import java.util.Objects;
 import java.util.Properties;
 
 @EnableTransactionManagement
-@EnableJpaRepositories("web.dao") // Убедитесь, что путь правильный (обычно lowercase 'dao')
+@EnableJpaRepositories("web.DAO")
 @Configuration
-@PropertySource("classpath:db.properties")
+@PropertySource("classpath:db.properties.properties")
 public class HibernateConfig {
 
     private final Environment environment;
