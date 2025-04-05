@@ -34,10 +34,10 @@ public class HibernateConfig {
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName(Objects.requireNonNull(environment.getProperty("db.driver")));
-        dataSource.setUrl(environment.getProperty("db.url"));
-        dataSource.setUsername(environment.getProperty("db.username"));
-        dataSource.setPassword(environment.getProperty("db.password"));
+        dataSource.setDriverClassName(Objects.requireNonNull(environment.getRequiredProperty("db.driver")));
+        dataSource.setUrl(environment.getRequiredProperty("db.url"));
+        dataSource.setUsername(environment.getRequiredProperty("db.username"));
+        dataSource.setPassword(environment.getRequiredProperty("db.password"));
         return dataSource;
     }
 
@@ -46,18 +46,26 @@ public class HibernateConfig {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource());
         em.setPackagesToScan("web.model");
-        em.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
+
+        HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+        vendorAdapter.setGenerateDdl(true);
+        vendorAdapter.setShowSql(true);
+        em.setJpaVendorAdapter(vendorAdapter);
+
         em.setJpaProperties(hibernateProperties());
         return em;
     }
 
     private Properties hibernateProperties() {
         Properties properties = new Properties();
-        properties.put("hibernate.dialect", environment.getProperty("hibernate.dialect"));
-        properties.put("hibernate.show_sql", environment.getProperty("hibernate.show_sql", "false"));
-        properties.put("hibernate.hbm2ddl.auto", environment.getProperty("hibernate.hbm2ddl.auto", "none"));
-        properties.put("hibernate.jakarta.persistence.schema-generation.database.action",
-                environment.getProperty("hibernate.hbm2ddl.auto", "none"));
+        properties.put("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
+         properties.put("hibernate.show_sql",
+                environment.getProperty("hibernate.show_sql", "true"));
+        properties.put("hibernate.format_sql", "true");
+        properties.put("hibernate.hbm2ddl.auto",
+                environment.getProperty("hibernate.hbm2ddl.auto", "update"));
+        properties.put("hibernate.connection.provider_disables_autocommit", "true");
+        properties.put("hibernate.temp.use_jdbc_metadata_defaults", "false");
         return properties;
     }
 

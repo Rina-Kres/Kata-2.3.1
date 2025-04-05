@@ -10,7 +10,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;  // Изменил int на Long для лучшей совместимости
+    private Long id;
 
     @Column(name = "name", nullable = false, length = 35)
     @NotBlank(message = "Name should not be empty")
@@ -27,7 +27,7 @@ public class User {
     @Column(name = "age", nullable = false)
     @Min(value = 1, message = "Age should be greater than 0")
     @Max(value = 120, message = "Age should be realistic")
-    private Integer age;  // Используем Integer вместо int для возможности null
+    private Integer age;
 
     @Column(name = "email", nullable = false, unique = true, length = 100)
     @NotBlank(message = "Email should not be empty")
