@@ -2,7 +2,6 @@ package web.config;
 
 import jakarta.persistence.EntityManagerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
@@ -22,7 +21,7 @@ import java.util.Properties;
 @EnableTransactionManagement
 @EnableJpaRepositories("web.DAO")
 @Configuration
-@PropertySource("classpath:db.properties.properties")
+@PropertySource("classpath:db.properties")
 public class HibernateConfig {
 
     private final Environment environment;
