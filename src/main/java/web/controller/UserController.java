@@ -40,7 +40,7 @@ public class UserController {
     public String saveUser(@ModelAttribute("user") @Valid User user,
                            BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "user/addUser";
+            return "addUser";
         }
         userService.save(user);
         return "redirect:/users";
