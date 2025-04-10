@@ -26,13 +26,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional(Transactional.TxType.SUPPORTS)
     public List<User> listUsers() {
         return userDao.listUsers();
     }
 
     @Override
-    @Transactional(Transactional.TxType.SUPPORTS)
     public Optional<User> findById(int id) {
         return userDao.findById(id);
     }

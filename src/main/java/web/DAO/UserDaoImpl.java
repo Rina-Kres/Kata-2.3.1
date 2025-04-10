@@ -3,7 +3,7 @@ package web.DAO;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
+
 import web.model.User;
 
 import java.util.List;
@@ -16,7 +16,6 @@ public class UserDaoImpl implements UserDao {
     private EntityManager entityManager;
 
     @Override
-    @Transactional
     public void save(User user) {
         entityManager.persist(user);
     }
@@ -34,13 +33,11 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    @Transactional
     public void editUser(User user) {
         entityManager.merge(user);
     }
 
     @Override
-    @Transactional
     public void deleteUser(int id) {
         findById(id).ifPresent(entityManager::remove);
     }
